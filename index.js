@@ -14,6 +14,8 @@ class Game {
   }
 
   initialize() {
+    let self = this;
+    this.chooseColor = this.chooseColor.bind(self);
     btnStart.classList.add("hide");
     this.level = 7;
     this.colors = {
@@ -31,6 +33,7 @@ class Game {
 
   nextLevel() {
     this.lightSequence();
+    this.addClickEvents();
   }
 
   transformNumberToColor(num) {
@@ -60,6 +63,19 @@ class Game {
 
   turnOffColor(color) {
     this.colors[color].classList.remove('light');
+  }
+
+  addClickEvents() {
+    this.colors.green.addEventListener('click', this.chooseColor);
+    this.colors.red.addEventListener('click', this.chooseColor);
+    this.colors.yellow.addEventListener('click', this.chooseColor);
+    this.colors.blue.addEventListener('click', this.chooseColor);
+    /*En this.chooseColor hemos usado el método bind en la función initialize para que su this siga siendo el objeto de la clase Game, y no el objeto botón seleccionado.*/
+  }
+
+  //Siempre que usamos manejadores de eventos, comúnmente los atrapamos en un paramatro 'ev'. Entonces usemoslo.
+  chooseColor(ev) {
+    console.log(this);
   }
 }
 
