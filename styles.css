@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  background: #dedede;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.gameboard {
+  height: 100vh;
+  width: 100vh;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  max-height: 60vh;
+  max-width: 60vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.color {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.green {
+  background: #00cb74;
+}
+
+.green.light {
+  background: green;
+}
+
+.red {
+  background: #fd2e13;
+}
+
+.red.light {
+  background: red;
+}
+
+.yellow {
+  background: #ece02f;
+}
+
+.yellow.light {
+  background: yellow;
+}
+
+.blue {
+  background: #12a0eb;
+}
+
+.blue.light {
+  background: blue;
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+    display: block;
+  }
+
+  to {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    display: block;
+  }
+
+  to {
+    display: none;
+    opacity: 0;
+  }
+}
+
+.btn-start {
+  transition: display 2s;
+  -webkit-transition: display 2s;
+  transition: visibility 1s;
+  -webkit-transition: visibility 1s;
+
+  cursor: pointer;
+  width: 420px;
+  height: 100px;
+  background: #ecf0f1;
+  color: #2c3e50;
+  border: none;
+  border-bottom: 4px solid #c4c6c7; /*Give a 3D effect*/
+  border-radius: 8px;
+  font-size: 3em;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 210px);
+  transition: 0.5s;
+  outline: none;
+}
+
+.btn-start:hover {
+  color: #ecf0f1;
+  background: #2c3e50;
+  border-bottom: 4px solid #1f3346;
+}
+
+.btn-start:active {
+  /*La pseudo-clase :active le da estilos al elemento cuando se le hace click (o cuando se active) a dicho elemento, es por eso que muy comúnmente se usa en elementos a y button, pero puede usarse en otros*/
+  transform: scale(0.95);
+}
+
+.hide {
+  /*display: none;*/
+
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+
+  visibility: hidden;
+}
