@@ -4,20 +4,23 @@ const yellow = document.getElementById('yellow');
 const blue = document.getElementById('blue');
 const btnStart = document.getElementById('btn-start');
 
+const LAST_LEVEL = 10;
+
 //Ctrl + D para recorrer y editar mismas palabras en el código
 
 class Game {
   constructor() {
     this.initialize();
     this.generateSequence();
-    this.nextLevel();
+    setTimeout(this.nextLevel, 500);
   }
 
   initialize() {
     let self = this;
     this.chooseColor = this.chooseColor.bind(self);
+    this.nextLevel = this.nextLevel.bind(self);
     btnStart.classList.add("hide");
-    this.level = 10;
+    this.level = 1;
     this.colors = {
       green,
       red,
@@ -27,13 +30,13 @@ class Game {
   }
 
   generateSequence() {
-      this.sequence = new Array(10).fill(0).map(() => Math.floor(Math.random() * 4));
+      this.sequence = new Array(LAST_LEVEL).fill(0).map(() => Math.floor(Math.random() * 4));
       /*La función map no funciona cuando los elementos no están definidos en un array y no tienen un valor. Es por ello que necesitan un valor aunque sea 0*/
   }
 
   nextLevel() {
+    this.subLevel = 0;
     this.lightSequence();
-    this.addClickEvents();
   }
 
   transformNumberToColor(num) {
@@ -49,20 +52,36 @@ class Game {
     }
   }
 
-  lightSequence() {
-    for(let i = 0; i < this.level; i++) {
-      let color = this.transformNumberToColor(this.sequence[i]);
-      setTimeout(() => this.lightColor(color), 1000 * i);
+  transformColorToNumber(color) {
+    switch(color) {
+      case 'green': 
+        return 0;
+      case 'red': 
+        return 1;
+      case 'yellow':
+        return 2;
+      case 'blue': 
+        return 3;
     }
   }
 
-  lightColor(color) {
-    this.colors[color].classList.add('light');
-    setTimeout(() => this.turnOffColor(color), 350);
+  lightSequence() {
+    for(let i = 0; i < this.level; i++) {
+      let color = this.transformNumberToColor(this.sequence[i]);
+      setTimeout(() => this.lightColor(color, i), 1000 * i);
+    }
   }
 
-  turnOffColor(color) {
+  lightColor(color, i) {
+    this.colors[color].classList.add('light');
+    setTimeout(() => this.turnOffColor(color, i), 350);
+  }
+
+  turnOffColor(color, i) {
     this.colors[color].classList.remove('light');
+        if ((i+1) === this.level) {
+            this.addClickEvents();
+        }
   }
 
   addClickEvents() {
@@ -73,9 +92,32 @@ class Game {
     /*En this.chooseColor hemos usado el método bind en la función initialize para que su this siga siendo el objeto de la clase Game, y no el objeto botón seleccionado.*/
   }
 
+  removeClickEvents() {
+    this.colors.green.removeEventListener('click', this.chooseColor);
+    this.colors.red.removeEventListener('click', this.chooseColor);
+    this.colors.yellow.removeEventListener('click', this.chooseColor);
+    this.colors.blue.removeEventListener('click', this.chooseColor);
+  }
+
   //Siempre que usamos manejadores de eventos, comúnmente los atrapamos en un parámetro 'ev'. Entonces usemoslo.
   chooseColor(ev) {
-    console.log(this);
+    const colorName = ev.target.dataset.color;
+    const numberColor = this.transformColorToNumber(colorName);
+    this.lightColor(colorName);
+    if(numberColor === this.sequence[this.subLevel]) {
+      this.subLevel++;
+      if(this.subLevel === this.level) {
+        this.level++;
+        this.removeClickEvents();
+        if(this.level === (LAST_LEVEL + 1)) {
+          //Ganó
+        } else {
+          setTimeout(this.nextLevel, 1500);
+        }
+      }
+    } else {
+      //Perdió
+    }
   }
 }
 
