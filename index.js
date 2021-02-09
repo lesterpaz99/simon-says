@@ -4,7 +4,7 @@ const yellow = document.getElementById('yellow');
 const blue = document.getElementById('blue');
 const btnStart = document.getElementById('btn-start');
 
-const LAST_LEVEL = 10;
+const LAST_LEVEL = 6;
 
 //Ctrl + D para recorrer y editar mismas palabras en el código
 
@@ -19,13 +19,21 @@ class Game {
     let self = this;
     this.chooseColor = this.chooseColor.bind(self);
     this.nextLevel = this.nextLevel.bind(self);
-    btnStart.classList.add("hide");
+    this.toggleStartBtn();
     this.level = 1;
     this.colors = {
       green,
       red,
       yellow,
       blue
+    }
+  }
+
+  toggleStartBtn() {
+    if (btnStart.classList.contains('hide')) {
+      btnStart.classList.remove("hide");
+    } else {
+      btnStart.classList.add('hide');
     }
   }
 
@@ -110,14 +118,29 @@ class Game {
         this.level++;
         this.removeClickEvents();
         if(this.level === (LAST_LEVEL + 1)) {
-          //Ganó
+          this.wonTheGame();
         } else {
           setTimeout(this.nextLevel, 1500);
         }
       }
     } else {
-      //Perdió
+      this.gameOver();
     }
+  }
+
+  wonTheGame() {
+    swal('Great!', 'You passed this level :D', 'success')
+    .then(() => {
+      this.initialize();
+    });
+  }
+
+  gameOver() {
+    swal('GAME OVER', 'You lost, press OK to start a new game', 'error')
+    .then(() => {
+      this.removeClickEvents();
+      this.initialize();
+    })
   }
 }
 
