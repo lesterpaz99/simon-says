@@ -16,6 +16,7 @@ body {
   max-height: 60vh;
   max-width: 60vh;
   display: grid;
+  gap: 4px;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
@@ -27,19 +28,23 @@ body {
 }
 
 .green {
-  background: #00cb74;
+  background: #04e762;
 }
 
 .green.light {
-  background: green;
+  background: #89fc00;
+  transform: scale3d(1.04, 1.04, 1.04);
+  box-shadow: 2px -1px 36px -4px rgba(255,255,255,0.75);
 }
 
 .red {
-  background: #fd2e13;
+  background: #ba2d0b;
 }
 
 .red.light {
-  background: red;
+  background: #ff0000;
+  transform: scale3d(1.04, 1.04, 1.04);
+  box-shadow: 2px -1px 36px -4px rgba(255,255,255,0.75);
 }
 
 .yellow {
@@ -48,6 +53,8 @@ body {
 
 .yellow.light {
   background: yellow;
+  transform: scale3d(1.04, 1.04, 1.04);
+  box-shadow: 2px -1px 36px -4px rgba(255,255,255,0.75);
 }
 
 .blue {
@@ -55,7 +62,9 @@ body {
 }
 
 .blue.light {
-  background: blue;
+  background: #64dfdf;
+  transform: scale3d(1.04, 1.04, 1.04);
+  box-shadow: 2px -1px 36px -4px rgba(255,255,255,0.75);
 }
 
 @-webkit-keyframes fadeOut {
