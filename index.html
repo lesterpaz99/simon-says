@@ -5,9 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simon Says</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <style>
+      body.swal2-height-auto {
+        height: 100vh !important;
+      }
+    </style>
     <div class="gameboard">
       <div id="green" class="color green" data-color="green"></div>
       <div id="red" class="color red" data-color="red"></div>
@@ -17,6 +22,7 @@
         Empezar a jugar!
       </button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./index.js"></script>
   </body>
