@@ -14,14 +14,14 @@ Swal.fire({
   width: 600,
   padding: '1.5em',
   confirmButtonText: 'Play!',
-  background: '#fff url(./bkground.jpg)',
-  imageUrl: './simon.gif',
+  background: '#fff url(./assets/bkground.jpg)',
+  imageUrl: './assets/simon.gif',
   imageWidth: 80,
   imageHeight: 80,
   imageAlt: 'Custom image',
   backdrop: `
     rgba(0,0,123,0.4)
-    url("./tenor.gif")
+    url('./assets/tenor.gif')
     left top
     no-repeat
   `
