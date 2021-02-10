@@ -4,15 +4,46 @@ const yellow = document.getElementById('yellow');
 const blue = document.getElementById('blue');
 const btnStart = document.getElementById('btn-start');
 
-const LAST_LEVEL = 6;
+const LAST_LEVEL = 10;
 
 //Ctrl + D para recorrer y editar mismas palabras en el código
+
+Swal.fire({
+  title: 'Welcome to Simon Says :D',
+  text: `Press Play to start the game. You will play ${LAST_LEVEL} levels.`,
+  width: 600,
+  padding: '1.5em',
+  confirmButtonText: 'Play!',
+  background: '#fff url(./bkground.jpg)',
+  imageUrl: './simon.gif',
+  imageWidth: 80,
+  imageHeight: 80,
+  imageAlt: 'Custom image',
+  backdrop: `
+    rgba(0,0,123,0.4)
+    url("./tenor.gif")
+    left top
+    no-repeat
+  `
+})
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
 
 class Game {
   constructor() {
     this.initialize();
     this.generateSequence();
-    setTimeout(this.nextLevel, 500);
+    setTimeout(this.nextLevel, 100);
   }
 
   initialize() {
@@ -115,9 +146,14 @@ class Game {
     if(numberColor === this.sequence[this.subLevel]) {
       this.subLevel++;
       if(this.subLevel === this.level) {
+        Toast.fire({
+          icon: 'success',
+          title: `Level ${this.level} passed`
+        });
         this.level++;
         this.removeClickEvents();
         if(this.level === (LAST_LEVEL + 1)) {
+          Toast.fire({});
           this.wonTheGame();
         } else {
           setTimeout(this.nextLevel, 1500);
